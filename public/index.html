@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>XanderIraq</title>
-<meta name="deploy-check" content="auto-2">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -40,6 +39,12 @@ nav.tabs a[aria-current="page"]{background:var(--fg);color:var(--bg)}
 button{font:inherit;color:inherit;cursor:pointer}
 button:disabled{opacity:.45;cursor:default}
 button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.right{display:flex;align-items:center;gap:8px}
+.theme{display:flex;border:1px solid var(--line);border-radius:999px;padding:2px;background:var(--bg)}
+.theme button{border:0;background:none;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:5px}
+.theme button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.theme .lbl{display:none}
+@media (min-width:600px){.theme .lbl{display:inline}}
 .cartbtn{display:flex;align-items:center;gap:8px;background:var(--fg);color:var(--bg);border:0;border-radius:999px;padding:8px 16px;font-weight:600}
 .cartbtn b{background:var(--accent);color:var(--accent-ink);border-radius:999px;min-width:22px;padding:0 6px;font-size:13px;font-variant-numeric:tabular-nums}
 main{min-height:60vh}
@@ -149,11 +154,22 @@ form.co input{border:1px solid var(--line);background:var(--bg);color:var(--fg);
 @media (prefers-reduced-motion:no-preference){aside.cart{animation:in .22s ease-out}@keyframes in{from{transform:translateX(30px);opacity:.6}}
   .view{animation:fade .18s ease-out}@keyframes fade{from{opacity:.4;transform:translateY(4px)}}}
 </style>
+<script>
+// Apply the saved theme before the page draws, so there's no flash
+try{const m=localStorage.getItem("xi-theme");if(m==="light"||m==="dark")document.documentElement.setAttribute("data-theme",m)}catch(e){}
+</script>
 
 <header class="bar"><div class="wrap">
   <div class="top">
     <a class="logo" href="#home"><i></i>XanderIraq</a>
-    <button class="cartbtn" id="openCart" aria-label="Open cart">Cart <b id="count">0</b></button>
+    <div class="right">
+      <div class="theme" id="theme" role="group" aria-label="Color theme">
+        <button data-mode="light" title="Light theme" aria-label="Light theme">☀<span class="lbl">Light</span></button>
+        <button data-mode="dark" title="Dark theme" aria-label="Dark theme">☾<span class="lbl">Dark</span></button>
+        <button data-mode="auto" title="Match my device" aria-label="Auto theme, matches your device">◐<span class="lbl">Auto</span></button>
+      </div>
+      <button class="cartbtn" id="openCart" aria-label="Open cart">Cart <b id="count">0</b></button>
+    </div>
   </div>
   <nav class="tabs" id="tabs" aria-label="Pages">
     <a href="#home" data-v="home">Home</a>
@@ -412,6 +428,16 @@ $("#co").onsubmit=e=>{e.preventDefault();const m=$("#msg");const email=$("#email
   if(!linked.length){m.className="msg bad";m.textContent="Payments aren't connected yet. Add a payment link to each product to take real orders.";return}
   m.className="msg ok";m.innerHTML="Continue to payment: "+linked.map(p=>`<a href="${p.link}" target="_blank" rel="noopener">${esc(p.name)}</a>`).join(", ");
 };
+// Theme switch: light, dark, or auto (follows the device setting)
+function setTheme(mode,store){
+  const root=document.documentElement;
+  if(mode==="light"||mode==="dark")root.setAttribute("data-theme",mode);else root.removeAttribute("data-theme");
+  document.querySelectorAll("#theme button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===mode));
+  if(store){try{localStorage.setItem("xi-theme",mode)}catch(e){}}
+}
+let savedTheme="auto";try{savedTheme=localStorage.getItem("xi-theme")||"auto"}catch(e){}
+setTheme(savedTheme,false);
+$("#theme").onclick=e=>{const b=e.target.closest("[data-mode]");if(b)setTheme(b.dataset.mode,true)};
 $("#yr").textContent=new Date().getFullYear();
 window.addEventListener("hashchange",route);
 route();
