@@ -1,0 +1,8 @@
+{
+  // Static site served by the existing "xandeiraq" Worker at xanderiraq.com
+  "name": "xandeiraq",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./public"
+  }
+}
