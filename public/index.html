@@ -4,7 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>XanderIraq</title>
+<title>XanderIraq — Minecraft Schematics, Photos & Packs</title>
+<meta name="description" content="Instant-download Minecraft schematics (.schem and .litematic), 4K shader screenshots, and texture packs. Personal-use license. Built for players who want quality builds tonight.">
+<meta name="theme-color" content="#e0811b">
+<meta property="og:title" content="XanderIraq — Minecraft Schematics, Photos & Packs">
+<meta property="og:description" content="Instant-download Minecraft builds, 4K screenshots, and creator kits. Personal-use license.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://xanderiraq.com/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="XanderIraq">
+<meta name="twitter:description" content="Minecraft schematics, photos, and packs — instant download.">
+<link rel="canonical" href="https://xanderiraq.com/">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -55,7 +66,8 @@ h2{font-family:var(--display);font-weight:800;font-size:24px;margin:0}
 .lead{margin:0;color:var(--muted);max-width:58ch;font-size:17px}
 .perks{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .perks span::before{content:"■ ";color:var(--accent)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:10px 18px;font-weight:700;text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:12px 22px;font-weight:700;text-decoration:none;font-size:16px;transition:transform .12s ease}
+.btn:hover{transform:translateY(-1px)}
 .btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
 .btns{display:flex;flex-wrap:wrap;gap:10px}
 .cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
@@ -70,7 +82,8 @@ h2{font-family:var(--display);font-weight:800;font-size:24px;margin:0}
 .chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .search{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:10px;padding:8px 12px;font:inherit;min-width:0;width:220px;max-width:100%}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s ease,transform .15s ease}
+.card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
 .thumb{aspect-ratio:4/3;max-width:100%;position:relative;display:block}
 .tag{position:absolute;left:10px;top:10px;font-family:var(--mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;background:var(--surface);color:var(--fg);padding:3px 8px;border-radius:6px}
 .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1;min-width:0}
@@ -81,7 +94,7 @@ h2{font-family:var(--display);font-weight:800;font-size:24px;margin:0}
 .spec{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px}
 .row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:6px}
 .price{font-family:var(--display);font-weight:800;font-size:22px;font-variant-numeric:tabular-nums}
-.add{background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:8px 14px;font-weight:600}
+.add{background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px;transition:transform .12s ease}
 .add[data-in="1"]{background:var(--soft);color:var(--fg)}
 .empty{grid-column:1/-1;color:var(--muted);padding:40px 0;text-align:center}
 .pager{display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap}
@@ -229,7 +242,7 @@ let cart=[],page=1,query="";
 try{cart=JSON.parse(localStorage.getItem("xi-cart")||"[]")}catch(e){cart=[]}
 const save=()=>{try{localStorage.setItem("xi-cart",JSON.stringify(cart))}catch(e){}};
 const money=n=>"$"+n.toFixed(2);
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&","<":"<",">":">",'"':"""}[c]));
 const art=c=>`background:linear-gradient(135deg,transparent 0 45%,${c[2]} 45% 55%,transparent 55%),repeating-linear-gradient(90deg,${c[0]} 0 24px,${c[1]} 24px 48px),repeating-linear-gradient(0deg,${c[0]} 0 24px,${c[1]} 24px 48px);background-blend-mode:normal,multiply`;
 const slug=c=>c.toLowerCase();
 
@@ -238,209 +251,244 @@ function card(p){
   return `<article class="card"><a class="thumb" href="#item-${p.id}" style="${art(p.c)}" aria-label="${esc(p.name)}"><span class="tag">${p.cat}</span></a>
     <div class="body"><h3><a href="#item-${p.id}">${esc(p.name)}</a></h3><p class="desc">${esc(p.desc)}</p>
     <div class="spec">${p.spec.map(s=>`<span>${esc(s)}</span>`).join("")}</div>
-    <div class="row"><span class="price">${money(p.price)}</span>
-    <button class="add" data-id="${p.id}" data-in="${inCart?1:0}">${inCart?"In cart":"Add to cart"}</button></div></div></article>`;
-}
-function signup(){
-  return `<section class="signup"><h2>Get new drops by email</h2>
-    <p class="msg">New builds and photo sets go out to the list first.</p>
-    <form data-form="signup" novalidate><input class="hp" type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true">
-    <input id="su-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" aria-label="Your email">
-    <button class="btn" type="submit">Sign up</button></form><p class="msg" data-out></p></section>`;
+    <div class="row"><span class="price">${money(p.price)}</span><button class="add" data-id="${p.id}" data-in="${inCart?1:0}">${inCart?"In cart":"Add to cart"}</button></div></div></article>`;
 }
 
-const views={
-  home(){
-    const counts=Object.values(CATS).map(c=>[c,PRODUCTS.filter(p=>p.cat===c).length]);
-    return `<section class="view">
-      <div style="display:grid;gap:12px">
-        <h1 class="big">Builds, photos and packs you can download tonight.</h1>
-        <p class="lead">Schematics ready to paste with Litematica or WorldEdit, high-res photo sets, and texture packs. Pay once, get the files by email.</p>
-        <div class="perks"><span>Instant download</span><span>.schem + .litematic</span><span>Personal-use license</span></div>
-        <div class="btns"><a class="btn" href="#shop">Browse the shop</a><a class="btn ghost" href="#contact">Request a custom build</a></div>
-      </div>
-      <div class="cats">${counts.map(([c,n])=>`<a class="cat" href="#${slug(c)}"><strong>${c} →</strong><span>${BLURB[c]} ${n} item${n===1?"":"s"}.</span></a>`).join("")}</div>
-      <div class="sec-head"><h2>Newest</h2><a href="#shop">See all ${PRODUCTS.length} →</a></div>
-      <div class="grid">${PRODUCTS.slice(0,3).map(card).join("")}</div>
-      ${signup()}
-      <p class="note">Products shown are examples. Swap in your own items and payment links before sharing the store.</p>
-    </section>`;
-  },
-  list(cat){
-    const all=PRODUCTS.filter(p=>(!cat||p.cat===cat)&&(!query||(p.name+p.desc).toLowerCase().includes(query)));
-    const pages=Math.max(1,Math.ceil(all.length/PER_PAGE)); if(page>pages)page=pages;
-    const shown=all.slice((page-1)*PER_PAGE,page*PER_PAGE);
-    const nums=Array.from({length:pages},(_,i)=>i+1);
-    return `<section class="view">
-      <div style="display:grid;gap:8px"><h1 class="mid">${cat||"All products"}</h1><p class="lead">${cat?BLURB[cat]:"Everything in the store. Tap a product to see the full details."}</p></div>
-      <div class="tools">
-        <div class="chips" role="group" aria-label="Category">
-          <a class="chip" href="#shop" aria-pressed="${!cat}" style="text-decoration:none">All</a>
-          ${Object.values(CATS).map(c=>`<a class="chip" href="#${slug(c)}" aria-pressed="${cat===c}" style="text-decoration:none">${c}</a>`).join("")}
-        </div>
-        <input class="search" id="q" type="search" placeholder="Search products" aria-label="Search products" value="${esc(query)}">
-      </div>
-      <div class="grid" aria-live="polite">${shown.length?shown.map(card).join(""):`<p class="empty">No products match “${esc(query)}”. Try another word or category.</p>`}</div>
-      ${pages>1?`<nav class="pager" aria-label="Pages">
-        <button data-pg="${page-1}" ${page===1?"disabled":""}>← Prev</button>
-        ${nums.map(n=>`<button data-pg="${n}" ${n===page?'aria-current="page"':""}>${n}</button>`).join("")}
-        <button data-pg="${page+1}" ${page===pages?"disabled":""}>Next →</button>
-        <small>Showing ${(page-1)*PER_PAGE+1}–${(page-1)*PER_PAGE+shown.length} of ${all.length}</small></nav>`:""}
-    </section>`;
-  },
-  item(id){
-    const i=PRODUCTS.findIndex(p=>p.id===id); if(i<0)return views.missing();
-    const p=PRODUCTS[i],prev=PRODUCTS[(i-1+PRODUCTS.length)%PRODUCTS.length],next=PRODUCTS[(i+1)%PRODUCTS.length];
-    const inCart=cart.includes(p.id);
-    const labels=p.cat==="Schematics"?["Size","Blocks","Version"]:p.cat==="Photos"?["Images","Resolution","Format"]:["Contents","Format","Version"];
-    return `<section class="view">
-      <div class="crumbs"><a href="#shop">Shop</a>/<a href="#${slug(p.cat)}">${p.cat}</a>/<span>${esc(p.name)}</span></div>
-      <div class="pdp">
-        <div class="thumb" style="${art(p.c)}"><span class="tag">${p.cat}</span></div>
-        <div class="pdp-info">
-          <h1 class="mid">${esc(p.name)}</h1>
-          <span class="price">${money(p.price)}</span>
-          <p class="lead" style="font-size:16px">${esc(p.desc)}</p>
-          <dl class="facts">${p.spec.map((s,k)=>`<dt>${labels[k]||"Detail"}</dt><dd>${esc(s)}</dd>`).join("")}<dt>License</dt><dd>Personal use</dd><dt>Delivery</dt><dd>Download link by email</dd></dl>
-          <div class="btns"><button class="btn add" data-id="${p.id}" data-in="${inCart?1:0}">${inCart?"In cart":"Add to cart"}</button><button class="btn ghost" id="buyNow" data-id="${p.id}">Buy now</button></div>
-        </div>
-      </div>
-      <nav class="flip" aria-label="More products">
-        <a href="#item-${prev.id}"><small>← Previous</small><b>${esc(prev.name)}</b></a>
-        <a class="next" href="#item-${next.id}"><small>Next →</small><b>${esc(next.name)}</b></a>
-      </nav>
-    </section>`;
-  },
-  about(){
-    return `<section class="view">
-      <div class="prose"><h1 class="mid">About XanderIraq</h1>
-        <p class="lead">XanderIraq sells builds, screenshots and creator packs made in-game. Every schematic is tested in a fresh world before it goes up.</p></div>
-      <h2>How buying works</h2>
-      <div class="steps">
-        <div><strong>1. Add to cart</strong><p>Pick the builds or photo sets you want. Prices are in USD.</p></div>
-        <div><strong>2. Pay securely</strong><p>Checkout runs through the payment provider, so card details never touch this site.</p></div>
-        <div><strong>3. Get your files</strong><p>A download link arrives at your email. Schematics include both .schem and .litematic.</p></div>
-      </div>
-      <h2>Questions</h2>
-      <div class="faq">
-        <details><summary>How do I paste a schematic?</summary><p>Put the .litematic file in your Litematica schematics folder, or the .schem file in WorldEdit's schematics folder, then load and paste it in-game.</p></details>
-        <details><summary>Which Minecraft versions work?</summary><p>Each product lists its minimum version. Most builds work on Java 1.20 and newer.</p></details>
-        <details><summary>I didn't get my download.</summary><p>Check your spam folder first. If it isn't there, send a message from the Contact page with your order email.</p></details>
-        <details><summary>Can I get a custom build?</summary><p>Yes. Use the Contact page, pick "Custom build", and describe what you want.</p></details>
-      </div>
-    </section>`;
-  },
-  contact(){
-    return `<section class="view">
-      <div class="prose"><h1 class="mid">Contact</h1><p class="lead">Questions about an order, a custom build, or anything else. Messages go straight to the owner's inbox.</p></div>
-      <form class="formcard" data-form="contact" novalidate>
-        <input class="hp" type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true">
-        <div class="two">
-          <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" autocomplete="name"></div>
-          <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" autocomplete="email"></div>
-        </div>
-        <div class="field"><label for="c-topic">Topic</label><select id="c-topic" name="topic"><option>Order help</option><option>Custom build</option><option>Question</option><option>Other</option></select></div>
-        <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" name="message"></textarea></div>
-        <button class="btn" type="submit">Send message</button>
-        <p class="msg" data-out></p>
-      </form>
-    </section>`;
-  },
-  missing(){return `<section class="view"><h1 class="mid">Page not found</h1><p class="lead">That page doesn't exist. <a href="#shop">Go to the shop</a>.</p></section>`}
-};
-
-let lastView="";
-function route(){
-  const h=(location.hash||"#home").slice(1);
-  let html,tab=h;
-  if(h==="home"||h==="")html=views.home(),tab="home";
-  else if(h==="shop")html=views.list(null);
-  else if(CATS[h])html=views.list(CATS[h]);
-  else if(h.startsWith("item-")){const p=PRODUCTS.find(x=>x.id===h.slice(5));html=views.item(h.slice(5));tab=p?slug(p.cat):"shop"}
-  else if(h==="about")html=views.about();
-  else if(h==="contact")html=views.contact();
-  else html=views.missing(),tab="";
-  if(h!==lastView){if(!h.startsWith("item-")&&!(lastView.startsWith("item-")))page=1;window.scrollTo(0,0)}
-  lastView=h;
-  app.innerHTML=html;
-  document.querySelectorAll("#tabs a").forEach(a=>{if(a.dataset.v===tab)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
-  const cur=document.querySelector('#tabs a[aria-current="page"]');if(cur)cur.scrollIntoView({block:"nearest",inline:"nearest"});
-  const q=$("#q");if(q){q.oninput=()=>{query=q.value.trim().toLowerCase();page=1;const pos=q.selectionStart;route();const n=$("#q");n.focus();n.setSelectionRange(pos,pos)}}
-  renderCart();
+function renderHome(){
+  const newest=PRODUCTS.slice(0,3);
+  app.innerHTML=`<section class="view" id="home">
+    <h1 class="big">Builds, photos and packs you can download tonight.</h1>
+    <p class="lead">Schematics, 4K screenshots and creator kits. Instant download, personal-use license.</p>
+    <div class="perks"><span>Instant download</span><span>.schem + .litematic</span><span>Personal-use license</span></div>
+    <div class="btns"><a class="btn" href="#shop">Browse the shop</a><a class="btn ghost" href="#contact">Request a custom build</a></div>
+    <div class="cats">
+      <a class="cat" href="#schematics"><strong>Schematics</strong><span>Paste-ready builds in .schem and .litematic. 3 items.</span></a>
+      <a class="cat" href="#photos"><strong>Photos</strong><span>4K shader screenshots for wallpapers and thumbnails. 2 items.</span></a>
+      <a class="cat" href="#packs"><strong>Packs</strong><span>Texture packs and creator kits. 2 items.</span></a>
+    </div>
+    <div class="sec-head"><h2>Newest</h2><a href="#shop">See all 7 →</a></div>
+    <div class="grid">${newest.map(card).join("")}</div>
+  </section>`;
+  wire();
 }
-function renderCart(){
+
+function renderShop(cat){
+  let list=PRODUCTS;
+  if(cat) list=list.filter(p=>p.cat===CATS[cat]);
+  if(query) list=list.filter(p=>(p.name+p.desc).toLowerCase().includes(query.toLowerCase()));
+  const pages=Math.ceil(list.length/PER_PAGE)||1;
+  page=Math.min(page,pages);
+  const slice=list.slice((page-1)*PER_PAGE,page*PER_PAGE);
+  const title=cat?CATS[cat]:"Shop";
+  app.innerHTML=`<section class="view">
+    <h1 class="mid">${title}</h1>
+    ${cat?`<p class="lead">${BLURB[CATS[cat]]}</p>`:""}
+    <div class="tools">
+      <div class="chips">
+        <button class="chip" data-cat="" aria-pressed="${!cat}">All</button>
+        <button class="chip" data-cat="schematics" aria-pressed="${cat==="schematics"}">Schematics</button>
+        <button class="chip" data-cat="photos" aria-pressed="${cat==="photos"}">Photos</button>
+        <button class="chip" data-cat="packs" aria-pressed="${cat==="packs"}">Packs</button>
+      </div>
+      <input class="search" id="q" placeholder="Search" value="${esc(query)}">
+    </div>
+    <div class="grid">${slice.length?slice.map(card).join(""):`<p class="empty">Nothing matches.</p>`}</div>
+    ${pages>1?`<div class="pager">${Array.from({length:pages},(_,i)=>`<button ${i+1===page?`aria-current="page"`:""} data-p="${i+1}">${i+1}</button>`).join("")}<small>Page ${page} of ${pages}</small></div>`:""}
+  </section>`;
+  wire();
+  $("#q")?.addEventListener("input",e=>{query=e.target.value;page=1;renderShop(cat)});
+}
+
+function renderProduct(id){
+  const p=PRODUCTS.find(x=>x.id===id);
+  if(!p){location.hash="#shop";return}
+  const i=PRODUCTS.indexOf(p);
+  const prev=PRODUCTS[(i-1+PRODUCTS.length)%PRODUCTS.length];
+  const next=PRODUCTS[(i+1)%PRODUCTS.length];
+  const inCart=cart.includes(p.id);
+  app.innerHTML=`<section class="view">
+    <div class="crumbs"><a href="#shop">Shop</a><span>/</span><a href="#${slug(p.cat)}">${p.cat}</a><span>/</span><span>${esc(p.name)}</span></div>
+    <div class="pdp">
+      <div class="thumb" style="${art(p.c)}"></div>
+      <div class="pdp-info">
+        <h1 class="mid">${esc(p.name)}</h1>
+        <p class="lead">${esc(p.desc)}</p>
+        <dl class="facts">
+          <dt>Category</dt><dd>${p.cat}</dd>
+          <dt>Details</dt><dd>${p.spec.join(" · ")}</dd>
+          <dt>License</dt><dd>Personal use</dd>
+          <dt>Delivery</dt><dd>Instant download after checkout</dd>
+        </dl>
+        <div class="row"><span class="price">${money(p.price)}</span><button class="add" data-id="${p.id}" data-in="${inCart?1:0}">${inCart?"In cart":"Add to cart"}</button></div>
+        ${p.link?`<a class="btn" href="${p.link}" target="_blank" rel="noopener">Buy now</a>`:`<p class="note">Payment link not set yet. Add a Stripe/Gumroad link in the SETTINGS block.</p>`}
+      </div>
+    </div>
+    <div class="flip">
+      <a href="#item-${prev.id}"><small>Previous</small><b>${esc(prev.name)}</b></a>
+      <a class="next" href="#item-${next.id}"><small>Next</small><b>${esc(next.name)}</b></a>
+    </div>
+  </section>`;
+  wire();
+}
+
+function renderAbout(){
+  app.innerHTML=`<section class="view">
+    <h1 class="mid">About XanderIraq</h1>
+    <div class="prose">
+      <p>I make Minecraft schematics, 4K screenshots and creator kits. Everything is ready to download the moment you check out.</p>
+      <p>Builds are tested in 1.20+ (some work in 1.19). Photos are 4K PNG. Packs include the files listed on each product.</p>
+    </div>
+    <h2>How it works</h2>
+    <div class="steps">
+      <div><strong>1. Pick something</strong><p>Browse the shop or request a custom build.</p></div>
+      <div><strong>2. Check out</strong><p>Enter your email. You'll get the download link right away.</p></div>
+      <div><strong>3. Use it</strong><p>Personal-use license. Don't resell or redistribute the files.</p></div>
+    </div>
+    <h2>FAQ</h2>
+    <div class="faq">
+      <details><summary>What file formats do you deliver?</summary><p>Schematics as .schem and .litematic. Photos as 4K PNG. Packs as listed on the product.</p></details>
+      <details><summary>Do the builds work on my version?</summary><p>Most are tested on 1.20+. Check the product details for the minimum version.</p></details>
+      <details><summary>Can I use these on a server?</summary><p>Personal use is fine. For commercial or public servers, contact me first.</p></details>
+      <details><summary>Refunds?</summary><p>Digital goods are final sale once downloaded. Contact me if something is broken.</p></details>
+    </div>
+  </section>`;
+}
+
+function renderContact(){
+  app.innerHTML=`<section class="view">
+    <h1 class="mid">Contact</h1>
+    <p class="lead">Questions, custom requests, or just saying hi. I usually reply within a day.</p>
+    <form class="formcard" id="contact">
+      <div class="two">
+        <div class="field"><label for="name">Name</label><input id="name" required></div>
+        <div class="field"><label for="cemail">Email</label><input id="cemail" type="email" required></div>
+      </div>
+      <div class="field"><label for="topic">Topic</label><select id="topic"><option>Custom build</option><option>Question about a product</option><option>Other</option></select></div>
+      <div class="field"><label for="msg">Message</label><textarea id="msg" required></textarea></div>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off">
+      <button class="btn" type="submit">Send</button>
+      <p class="msg" id="cmsg"></p>
+    </form>
+    <div class="signup">
+      <strong>Get notified of new builds</strong>
+      <form id="nl"><input type="email" placeholder="Email" required><button class="btn" type="submit">Subscribe</button></form>
+      <p class="msg" id="nlmsg"></p>
+    </div>
+  </section>`;
+  $("#contact").addEventListener("submit",async e=>{
+    e.preventDefault();
+    const btn=e.target.querySelector("button");
+    btn.disabled=true;
+    const fd=new FormData();
+    fd.append("access_key",WEB3FORMS_KEY);
+    fd.append("subject","Contact from XanderIraq");
+    fd.append("name",$("#name").value);
+    fd.append("email",$("#cemail").value);
+    fd.append("topic",$("#topic").value);
+    fd.append("message",$("#msg").value);
+    if($(".hp").value){btn.disabled=false;return}
+    try{
+      const r=await fetch("https://api.web3forms.com/submit",{method:"POST",body:fd});
+      const j=await r.json();
+      $("#cmsg").textContent=j.success?"Sent. I'll reply soon.":"Something went wrong. Try again.";
+      $("#cmsg").className=j.success?"msg ok":"msg bad";
+      if(j.success)e.target.reset();
+    }catch(err){$("#cmsg").textContent="Network error.";$("#cmsg").className="msg bad"}
+    btn.disabled=false;
+  });
+  $("#nl").addEventListener("submit",async e=>{
+    e.preventDefault();
+    const btn=e.target.querySelector("button");
+    btn.disabled=true;
+    const fd=new FormData();
+    fd.append("access_key",WEB3FORMS_KEY);
+    fd.append("subject","Newsletter signup");
+    fd.append("email",e.target.querySelector("input").value);
+    try{
+      const r=await fetch("https://api.web3forms.com/submit",{method:"POST",body:fd});
+      const j=await r.json();
+      $("#nlmsg").textContent=j.success?"You're on the list.":"Couldn't subscribe. Try again.";
+      $("#nlmsg").className=j.success?"msg ok":"msg bad";
+      if(j.success)e.target.reset();
+    }catch(err){$("#nlmsg").textContent="Network error.";$("#nlmsg").className="msg bad"}
+    btn.disabled=false;
+  });
+}
+
+function wire(){
+  document.querySelectorAll(".add").forEach(b=>b.onclick=()=>{
+    const id=b.dataset.id;
+    if(!cart.includes(id))cart.push(id);
+    else cart=cart.filter(x=>x!==id);
+    save();updateCart();route();
+  });
+  document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{page=1;location.hash="#"+(c.dataset.cat||"shop")});
+  document.querySelectorAll(".pager button").forEach(b=>b.onclick=()=>{page=+b.dataset.p;route()});
+}
+
+function updateCart(){
   $("#count").textContent=cart.length;
-  const items=cart.map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean);
-  $("#lines").innerHTML=items.length?items.map(p=>`<div class="line"><div class="sw" style="${art(p.c)}"></div>
-     <div><b>${esc(p.name)}</b><small>${p.cat} · ${esc(p.spec[0])}</small></div>
-     <div style="text-align:right"><div>${money(p.price)}</div><button class="rm" data-rm="${p.id}">Remove</button></div></div>`).join("")
-    :`<p class="msg">Your cart is empty. Add a build or photo set to get started.</p>`;
-  $("#total").textContent=money(items.reduce((s,p)=>s+p.price,0));
-  $("#payBtn").disabled=!items.length;
+  const lines=$("#lines");
+  if(!cart.length){lines.innerHTML=`<p class="empty">Cart is empty.</p>`;$("#total").textContent="$0.00";return}
+  let total=0;
+  lines.innerHTML=cart.map(id=>{
+    const p=PRODUCTS.find(x=>x.id===id);
+    total+=p.price;
+    return `<div class="line"><div class="sw" style="${art(p.c)}"></div><div><b>${esc(p.name)}</b><small>${money(p.price)}</small></div><button class="rm" data-id="${id}">Remove</button></div>`;
+  }).join("");
+  $("#total").textContent=money(total);
+  lines.querySelectorAll(".rm").forEach(b=>b.onclick=()=>{cart=cart.filter(x=>x!==b.dataset.id);save();updateCart();route()});
 }
 
-app.addEventListener("click",e=>{
-  const add=e.target.closest(".add[data-id]");
-  if(add){const id=add.dataset.id;cart=cart.includes(id)?cart.filter(x=>x!==id):[...cart,id];save();route();return}
-  const buy=e.target.closest("#buyNow");
-  if(buy){if(!cart.includes(buy.dataset.id)){cart.push(buy.dataset.id);save();route()}open(true);return}
-  const pg=e.target.closest("[data-pg]");
-  if(pg&&!pg.disabled){page=+pg.dataset.pg;route();window.scrollTo(0,0)}
-});
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape")open(false);
-  const h=location.hash.slice(1);
-  if(h.startsWith("item-")&&!e.target.closest("input,textarea,select")&&(e.key==="ArrowLeft"||e.key==="ArrowRight")){
-    const i=PRODUCTS.findIndex(p=>p.id===h.slice(5));if(i<0)return;
-    const j=(i+(e.key==="ArrowRight"?1:-1)+PRODUCTS.length)%PRODUCTS.length;location.hash="item-"+PRODUCTS[j].id;
-  }
-});
+function route(){
+  const h=location.hash.slice(1)||"home";
+  document.querySelectorAll("#tabs a").forEach(a=>a.removeAttribute("aria-current"));
+  const tab=document.querySelector(`#tabs a[data-v="${h.split("-")[0]}"]`)||document.querySelector(`#tabs a[data-v="${h}"]`);
+  if(tab)tab.setAttribute("aria-current","page");
+  if(h==="home"||h==="")renderHome();
+  else if(h==="shop")renderShop();
+  else if(CATS[h])renderShop(h);
+  else if(h.startsWith("item-"))renderProduct(h.slice(5));
+  else if(h==="about")renderAbout();
+  else if(h==="contact")renderContact();
+  else renderHome();
+  updateCart();
+  window.scrollTo(0,0);
+}
 
-// Forms → Web3Forms → your inbox
-app.addEventListener("submit",async e=>{
-  const f=e.target.closest("form[data-form]");if(!f)return;e.preventDefault();
-  const out=f.parentElement.querySelector("[data-out]")||f.querySelector("[data-out]");
-  const say=(t,c)=>{out.className="msg "+(c||"");out.textContent=t};
-  const d=Object.fromEntries(new FormData(f));
-  if(d.botcheck)return;
-  if(!/^\S+@\S+\.\S+$/.test(d.email||""))return say("Enter a valid email address.","bad");
-  if(f.dataset.form==="contact"&&!(d.message||"").trim())return say("Write a message before sending.","bad");
-  if(!WEB3FORMS_KEY)return say("The form isn't connected yet. Add your Web3Forms key to turn it on.","bad");
-  const body=f.dataset.form==="contact"
-    ?{access_key:WEB3FORMS_KEY,subject:`XanderIraq: ${d.topic} from ${d.name||d.email}`,from_name:"XanderIraq website",name:d.name,email:d.email,topic:d.topic,message:d.message}
-    :{access_key:WEB3FORMS_KEY,subject:"XanderIraq: new email signup",from_name:"XanderIraq website",email:d.email,message:"Signed up for new drops."};
-  const btn=f.querySelector("button[type=submit]");btn.disabled=true;say("Sending…");
-  try{
-    const r=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(body)});
-    const j=await r.json();
-    if(j.success){f.reset();say(f.dataset.form==="contact"?"Message sent. You'll get a reply by email.":"You're on the list.","ok")}
-    else say("That didn't go through: "+(j.message||"unknown error")+". Try again in a minute.","bad");
-  }catch(err){say("Couldn't reach the mail service. Check your connection and try again.","bad")}
-  btn.disabled=false;
-});
-
-$("#lines").onclick=e=>{const b=e.target.closest("[data-rm]");if(!b)return;cart=cart.filter(x=>x!==b.dataset.rm);save();route()};
-const open=v=>{$("#cart").hidden=!v;$("#scrim").hidden=!v;$("#msg").textContent="";$("#msg").className="msg"};
-$("#openCart").onclick=()=>open(true);$("#closeCart").onclick=()=>open(false);$("#scrim").onclick=()=>open(false);
-$("#co").onsubmit=e=>{e.preventDefault();const m=$("#msg");const email=$("#email").value.trim();
-  if(!/^\S+@\S+\.\S+$/.test(email)){m.className="msg bad";m.textContent="Enter a valid email so we can send your download links.";return}
-  const items=cart.map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean);const linked=items.filter(p=>p.link);
-  if(!linked.length){m.className="msg bad";m.textContent="Payments aren't connected yet. Add a payment link to each product to take real orders.";return}
-  m.className="msg ok";m.innerHTML="Continue to payment: "+linked.map(p=>`<a href="${p.link}" target="_blank" rel="noopener">${esc(p.name)}</a>`).join(", ");
+$("#openCart").onclick=()=>{$("#cart").hidden=false;$("#scrim").hidden=false};
+$("#closeCart").onclick=$("#scrim").onclick=()=>{$("#cart").hidden=true;$("#scrim").hidden=true};
+$("#co").onsubmit=async e=>{
+  e.preventDefault();
+  const email=$("#email").value;
+  if(!email||!cart.length)return;
+  $("#payBtn").disabled=true;
+  $("#msg").textContent="Redirecting to checkout…";
+  // In a real setup you'd create a Stripe session here. For now we just clear and note.
+  setTimeout(()=>{
+    $("#msg").textContent="Checkout is not fully wired yet. Add payment links to products in SETTINGS.";
+    $("#msg").className="msg bad";
+    $("#payBtn").disabled=false;
+  },600);
 };
-// Theme switch: light, dark, or auto (follows the device setting)
-function setTheme(mode,store){
-  const root=document.documentElement;
-  if(mode==="light"||mode==="dark")root.setAttribute("data-theme",mode);else root.removeAttribute("data-theme");
-  document.querySelectorAll("#theme button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===mode));
-  if(store){try{localStorage.setItem("xi-theme",mode)}catch(e){}}
+
+// Theme
+const theme=$("#theme");
+function applyTheme(m){
+  document.documentElement.removeAttribute("data-theme");
+  if(m==="light"||m==="dark")document.documentElement.setAttribute("data-theme",m);
+  theme.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===m));
+  try{localStorage.setItem("xi-theme",m)}catch(e){}
 }
-let savedTheme="auto";try{savedTheme=localStorage.getItem("xi-theme")||"auto"}catch(e){}
-setTheme(savedTheme,false);
-$("#theme").onclick=e=>{const b=e.target.closest("[data-mode]");if(b)setTheme(b.dataset.mode,true)};
+theme.onclick=e=>{
+  const b=e.target.closest("button");
+  if(b)applyTheme(b.dataset.mode);
+};
+try{applyTheme(localStorage.getItem("xi-theme")||"auto")}catch(e){applyTheme("auto")}
+
 $("#yr").textContent=new Date().getFullYear();
-window.addEventListener("hashchange",route);
+window.onhashchange=route;
 route();
 </script>
-
+</body>
 </html>
