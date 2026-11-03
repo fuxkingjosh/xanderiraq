@@ -1,0 +1,13 @@
+XanderIraq sample pack
+======================
+
+This file stands in until the sample .litematic and .schem are added.
+Replace public/downloads/sample-pack.txt, or point the sample product's
+files[].href at the real schematic in public/products.js.
+
+The sample is free after the email signup on the site.
+Personal-use license: don't resell or redistribute the file.
+
+Install notes
+- .litematic: Litematica (see the Install guide on xanderiraq.com)
+- .schem: WorldEdit
