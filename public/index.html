@@ -242,7 +242,7 @@ let cart=[],page=1,query="";
 try{cart=JSON.parse(localStorage.getItem("xi-cart")||"[]")}catch(e){cart=[]}
 const save=()=>{try{localStorage.setItem("xi-cart",JSON.stringify(cart))}catch(e){}};
 const money=n=>"$"+n.toFixed(2);
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&","<":"<",">":">",'"':"""}[c]));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const art=c=>`background:linear-gradient(135deg,transparent 0 45%,${c[2]} 45% 55%,transparent 55%),repeating-linear-gradient(90deg,${c[0]} 0 24px,${c[1]} 24px 48px),repeating-linear-gradient(0deg,${c[0]} 0 24px,${c[1]} 24px 48px);background-blend-mode:normal,multiply`;
 const slug=c=>c.toLowerCase();
 
