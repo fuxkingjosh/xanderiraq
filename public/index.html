@@ -2,493 +2,132 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>
+try {
+  var savedTheme = localStorage.getItem("xi-theme");
+  if (savedTheme === "light" || savedTheme === "dark") {
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }
+} catch (error) {}
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>XanderIraq — Minecraft Schematics, Photos & Packs</title>
 <meta name="description" content="Instant-download Minecraft schematics (.schem and .litematic), 4K shader screenshots, and texture packs. Personal-use license. Built for players who want quality builds tonight.">
-<meta name="theme-color" content="#e0811b">
+<meta name="theme-color" content="#f4efe6">
 <meta property="og:title" content="XanderIraq — Minecraft Schematics, Photos & Packs">
 <meta property="og:description" content="Instant-download Minecraft builds, 4K screenshots, and creator kits. Personal-use license.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://xanderiraq.com/">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://xanderiraq.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="XanderIraq — Minecraft schematics, photos, and packs">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="XanderIraq">
 <meta name="twitter:description" content="Minecraft schematics, photos, and packs — instant download.">
+<meta name="twitter:image" content="https://xanderiraq.com/og.png">
+<meta name="twitter:image:alt" content="XanderIraq — Minecraft schematics, photos, and packs">
 <link rel="canonical" href="https://xanderiraq.com/">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="apple-mobile-web-app-title" content="XanderIraq">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
-<style>
-/* Layout: sticky bar with page tabs → one view at a time (Home / Shop / Product / About / Contact); cart slides in from the right */
-:root{
-  --bg:#f3f4f7; --surface:#ffffff; --fg:#161a24; --muted:#5c6577; --line:#dde1ea;
-  --accent:#e0811b; --accent-ink:#ffffff; --soft:#fbe9d3; --ok:#1f8a5b; --bad:#c0392b;
-  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
-  --body:"Figtree",ui-sans-serif,system-ui,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#11141b; --surface:#191d27; --fg:#eef0f5; --muted:#9aa3b5; --line:#2a3040;
-  --accent:#f29a3a; --accent-ink:#1a1206; --soft:#3a2a17; --ok:#4cc58c; --bad:#ff7a6b; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#11141b; --surface:#191d27; --fg:#eef0f5; --muted:#9aa3b5; --line:#2a3040;
-  --accent:#f29a3a; --accent-ink:#1a1206; --soft:#3a2a17; --ok:#4cc58c; --bad:#ff7a6b; color-scheme:dark}
-*{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.55}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
-a{color:inherit}
-.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px 8px}
-.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.01em;text-decoration:none}
-.logo i{width:22px;height:22px;background:conic-gradient(var(--accent) 0 25%,var(--fg) 0 50%,var(--accent) 0 75%,var(--fg) 0);border-radius:3px;display:block}
-nav.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
-nav.tabs a{text-decoration:none;padding:6px 14px;border-radius:999px;font-weight:600;color:var(--muted);white-space:nowrap}
-nav.tabs a:hover{color:var(--fg);background:var(--bg)}
-nav.tabs a[aria-current="page"]{background:var(--fg);color:var(--bg)}
-button{font:inherit;color:inherit;cursor:pointer}
-button:disabled{opacity:.45;cursor:default}
-button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.right{display:flex;align-items:center;gap:8px}
-.theme{display:flex;border:1px solid var(--line);border-radius:999px;padding:2px;background:var(--bg)}
-.theme button{border:0;background:none;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:5px}
-.theme button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 3px rgba(0,0,0,.18)}
-.theme .lbl{display:none}
-@media (min-width:600px){.theme .lbl{display:inline}}
-.cartbtn{display:flex;align-items:center;gap:8px;background:var(--fg);color:var(--bg);border:0;border-radius:999px;padding:8px 16px;font-weight:600}
-.cartbtn b{background:var(--accent);color:var(--accent-ink);border-radius:999px;min-width:22px;padding:0 6px;font-size:13px;font-variant-numeric:tabular-nums}
-main{min-height:60vh}
-.view{padding-block:32px 56px;display:grid;gap:24px}
-h1.big{font-family:var(--display);font-weight:800;font-size:clamp(30px,5vw,52px);line-height:1.02;letter-spacing:-.02em;margin:0;max-width:16ch;text-wrap:balance}
-h1.mid{font-family:var(--display);font-weight:800;font-size:clamp(26px,4vw,38px);line-height:1.08;margin:0;text-wrap:balance}
-h2{font-family:var(--display);font-weight:800;font-size:24px;margin:0}
-.lead{margin:0;color:var(--muted);max-width:58ch;font-size:17px}
-.perks{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-.perks span::before{content:"■ ";color:var(--accent)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:12px 22px;font-weight:700;text-decoration:none;font-size:16px;transition:transform .12s ease}
-.btn:hover{transform:translateY(-1px)}
-.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
-.btns{display:flex;flex-wrap:wrap;gap:10px}
-.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-.cat{display:grid;gap:4px;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
-.cat strong{font-family:var(--display);font-size:20px}
-.cat span{color:var(--muted);font-size:14px}
-.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
-.sec-head a{font-weight:600;color:var(--accent)}
-.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-weight:500}
-.chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.search{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:10px;padding:8px 12px;font:inherit;min-width:0;width:220px;max-width:100%}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s ease,transform .15s ease}
-.card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
-.thumb{aspect-ratio:4/3;max-width:100%;position:relative;display:block}
-.tag{position:absolute;left:10px;top:10px;font-family:var(--mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;background:var(--surface);color:var(--fg);padding:3px 8px;border-radius:6px}
-.body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1;min-width:0}
-.body h3{font-family:var(--display);font-weight:800;font-size:19px;margin:0;line-height:1.15}
-.body h3 a{text-decoration:none}
-.body h3 a:hover{text-decoration:underline}
-.desc{color:var(--muted);margin:0;font-size:14px}
-.spec{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:6px}
-.price{font-family:var(--display);font-weight:800;font-size:22px;font-variant-numeric:tabular-nums}
-.add{background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px;transition:transform .12s ease}
-.add[data-in="1"]{background:var(--soft);color:var(--fg)}
-.empty{grid-column:1/-1;color:var(--muted);padding:40px 0;text-align:center}
-.pager{display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap}
-.pager button{min-width:40px;height:40px;border:1px solid var(--line);background:var(--surface);border-radius:10px;font-weight:600;font-variant-numeric:tabular-nums;padding:0 12px}
-.pager button[aria-current="page"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.pager small{width:100%;text-align:center;color:var(--muted)}
-/* product page */
-.crumbs{font-size:13px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}
-.crumbs a{color:var(--muted)}
-.pdp{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;align-items:start}
-@media (max-width:760px){.pdp{grid-template-columns:1fr}}
-.pdp .thumb{border-radius:16px;overflow:hidden;border:1px solid var(--line)}
-.pdp-info{display:grid;gap:14px;min-width:0}
-.facts{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0;font-size:14px}
-.facts dt{color:var(--muted);font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding-top:2px}
-.facts dd{margin:0}
-.flip{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:18px}
-.flip a{display:grid;gap:2px;text-decoration:none;padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);min-width:0;max-width:48%}
-.flip a small{color:var(--muted);font-size:12px}
-.flip a b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.flip a.next{text-align:right;margin-left:auto}
-/* about / steps */
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.steps div{display:grid;gap:4px;align-content:start}
-.steps strong{font-weight:600}
-.steps p{margin:0;color:var(--muted);font-size:14px}
-.prose{max-width:62ch;display:grid;gap:12px}
-.prose p{margin:0}
-details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
-details summary{font-weight:600;cursor:pointer}
-details p{margin:8px 0 0;color:var(--muted)}
-.faq{display:grid;gap:10px;max-width:720px}
-/* forms */
-.formcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:12px;max-width:620px}
-.field{display:grid;gap:6px}
-.field label{font-size:13px;font-weight:600}
-.field input,.field textarea,.field select{border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:10px 12px;font:inherit;width:100%}
-.field textarea{min-height:140px;resize:vertical}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media (max-width:520px){.two{grid-template-columns:1fr}}
-.hp{position:absolute;left:-9999px}
-.msg{font-size:14px;color:var(--muted);margin:0}
-.msg.ok{color:var(--ok)}
-.msg.bad{color:var(--bad)}
-.signup{background:var(--soft);border-radius:16px;padding:20px;display:grid;gap:10px}
-.signup form{display:flex;gap:8px;flex-wrap:wrap}
-.signup input{flex:1 1 220px;min-width:0;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:10px;padding:10px 12px;font:inherit}
-footer{border-top:1px solid var(--line);background:var(--surface)}
-footer .wrap{padding-block:20px calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;font-size:13px;color:var(--muted)}
-footer nav{display:flex;gap:16px;flex-wrap:wrap}
-.note{font-size:13px;color:var(--muted);background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:10px 14px}
-/* cart */
-.scrim{position:fixed;inset:0;background:rgba(10,12,18,.45);z-index:20}
-aside.cart{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--surface);z-index:21;display:flex;flex-direction:column;
-  padding:calc(16px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) 18px;border-left:1px solid var(--line)}
-.cart h2{font-size:22px}
-.cart header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.x{background:none;border:1px solid var(--line);border-radius:8px;padding:4px 10px}
-.lines{flex:1;overflow:auto;display:grid;align-content:start;gap:10px}
-.line{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;border-bottom:1px solid var(--line);padding-bottom:10px}
-.line .sw{width:48px;height:48px;border-radius:8px}
-.line b{display:block;font-weight:600}
-.line small{color:var(--muted);font-family:var(--mono);font-size:11px}
-.rm{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:13px;padding:0}
-.total{display:flex;justify-content:space-between;font-family:var(--display);font-weight:800;font-size:20px;padding-block:12px;font-variant-numeric:tabular-nums}
-form.co{display:grid;gap:8px}
-form.co label{font-size:13px;font-weight:600}
-form.co input{border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:10px 12px;font:inherit}
-.pay{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:12px;font-weight:700;font-size:16px}
-@media (prefers-reduced-motion:no-preference){aside.cart{animation:in .22s ease-out}@keyframes in{from{transform:translateX(30px);opacity:.6}}
-  .view{animation:fade .18s ease-out}@keyframes fade{from{opacity:.4;transform:translateY(4px)}}}
-</style>
-<script>
-// Apply the saved theme before the page draws, so there's no flash
-try{const m=localStorage.getItem("xi-theme");if(m==="light"||m==="dark")document.documentElement.setAttribute("data-theme",m)}catch(e){}
-</script>
-
-<header class="bar"><div class="wrap">
-  <div class="top">
-    <a class="logo" href="#home"><i></i>XanderIraq</a>
-    <div class="right">
-      <div class="theme" id="theme" role="group" aria-label="Color theme">
-        <button data-mode="light" title="Light theme" aria-label="Light theme">☀<span class="lbl">Light</span></button>
-        <button data-mode="dark" title="Dark theme" aria-label="Dark theme">☾<span class="lbl">Dark</span></button>
-        <button data-mode="auto" title="Match my device" aria-label="Auto theme, matches your device">◐<span class="lbl">Auto</span></button>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<a class="skip" href="#app">Skip to content</a>
+<header class="bar">
+  <div class="wrap">
+    <div class="top">
+      <a class="logo" href="#home"><span class="mark" aria-hidden="true"></span>XanderIraq</a>
+      <div class="right">
+        <div class="theme" id="theme" role="group" aria-label="Color theme">
+          <button type="button" data-mode="light" title="Light theme" aria-label="Light theme" aria-pressed="false">☀<span class="lbl">Light</span></button>
+          <button type="button" data-mode="dark" title="Dark theme" aria-label="Dark theme" aria-pressed="false">☾<span class="lbl">Dark</span></button>
+          <button type="button" data-mode="auto" title="Match my device" aria-label="Auto theme, matches your device" aria-pressed="false">◐<span class="lbl">Auto</span></button>
+        </div>
+        <button class="cartbtn" id="open-cart" type="button" aria-label="Open cart">
+          <svg class="cart-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+            <path fill="none" stroke="currentColor" stroke-width="2" d="M6 6h15l-1.5 9h-12z"></path>
+            <path fill="none" stroke="currentColor" stroke-width="2" d="M6 6 5 3H2"></path>
+            <circle cx="9" cy="20" r="1.4" fill="currentColor"></circle>
+            <circle cx="18" cy="20" r="1.4" fill="currentColor"></circle>
+          </svg>
+          <span class="cart-label">Cart</span>
+          <b id="count" aria-live="polite">0</b>
+        </button>
       </div>
-      <button class="cartbtn" id="openCart" aria-label="Open cart">Cart <b id="count">0</b></button>
+    </div>
+    <div class="tab-row">
+      <nav class="tabs" id="tabs" aria-label="Pages">
+        <a href="#home" data-v="home">Home</a>
+        <a href="#shop" data-v="shop">Shop</a>
+        <a href="#schematics" data-v="schematics">Schematics</a>
+        <a href="#photos" data-v="photos">Photos</a>
+        <a href="#packs" data-v="packs">Packs</a>
+        <a href="#guide" data-v="guide">Guide</a>
+        <a href="#faq" data-v="faq">FAQ</a>
+        <a href="#contact" data-v="contact">Contact</a>
+      </nav>
     </div>
   </div>
-  <nav class="tabs" id="tabs" aria-label="Pages">
-    <a href="#home" data-v="home">Home</a>
-    <a href="#shop" data-v="shop">Shop</a>
-    <a href="#schematics" data-v="schematics">Schematics</a>
-    <a href="#photos" data-v="photos">Photos</a>
-    <a href="#packs" data-v="packs">Packs</a>
-    <a href="#about" data-v="about">About</a>
-    <a href="#contact" data-v="contact">Contact</a>
-  </nav>
-</div></header>
+</header>
 
-<main class="wrap" id="app"></main>
+<noscript><p class="noscript wrap">XanderIraq needs JavaScript to show the shop, cart, and forms.</p></noscript>
+<main class="wrap" id="app" tabindex="-1"></main>
 
-<footer><div class="wrap">
-  <span>© <span id="yr"></span> XanderIraq · Digital goods for Minecraft players</span>
-  <nav><a href="#shop">Shop</a><a href="#about">FAQ</a><a href="#contact">Contact</a></nav>
-</div></footer>
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> XanderIraq · Digital goods for Minecraft players</span>
+    <nav aria-label="Footer">
+      <a href="#shop">Shop</a>
+      <a href="#guide">Guide</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
 
 <div class="scrim" id="scrim" hidden></div>
-<aside class="cart" id="cart" hidden aria-label="Cart">
-  <header><h2>Your cart</h2><button class="x" id="closeCart">Close</button></header>
+<aside class="cart" id="cart" hidden role="dialog" aria-modal="true" aria-labelledby="cart-title">
+  <header>
+    <h2 id="cart-title">Your cart</h2>
+    <button class="x" id="close-cart" type="button">Close</button>
+  </header>
+  <div id="bundle-offer"></div>
   <div class="lines" id="lines"></div>
-  <div class="total"><span>Total</span><span id="total">$0.00</span></div>
-  <form class="co" id="co" novalidate>
-    <label for="email">Email for download links</label>
-    <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
-    <button class="pay" type="submit" id="payBtn">Check out</button>
-    <p class="msg" id="msg"></p>
+  <div class="total"><span>Total</span><span id="total">$0.00 USD</span></div>
+  <form class="co" id="checkout" novalidate>
+    <label for="checkout-email">Email for the Stripe receipt</label>
+    <input id="checkout-email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
+    <button class="pay" id="pay-btn" type="submit">Check out</button>
+    <p class="fine">Each Stripe Payment Link charges one product. With more than one item, pay per line — the rest stays in the cart.</p>
+    <p class="msg" id="cart-msg" role="status"></p>
   </form>
 </aside>
-
+<script src="./products.js"></script>
 <script>
-/* ============ SETTINGS: edit these ============ */
-// Free key from web3forms.com (enter your email there; the key arrives in your inbox).
-// Contact messages and newsletter signups get emailed to you.
-const WEB3FORMS_KEY = "21ad7332-886a-40fb-9041-4ee5e11c9c19";
-const PER_PAGE = 6; // products per shop page
-
-// Your products. "link" = your Stripe / Gumroad / Payhip payment link.
-const PRODUCTS=[
- {id:"spawn-castle",cat:"Schematics",name:"Obsidian Spawn Castle",desc:"Fortified keep with ender-chest vault and nether portal room.",spec:["87×64×91","212k blocks","1.20+"],price:12,c:["#2b2140","#6c4fb0","#e0811b"],link:""},
- {id:"stash-hall",cat:"Schematics",name:"Hidden Stash Hall",desc:"Underground storage hall, 432 double chests, item sorter built in.",spec:["48×12×60","38k blocks","1.20+"],price:8,c:["#1f2a24","#3f7a5a","#d6c27a"],link:""},
- {id:"mapart",cat:"Schematics",name:"Map Art Starter Pack",desc:"Six 128×128 map arts with block lists and staircase layouts.",spec:["6 maps","flat + stair","1.19+"],price:6,c:["#1d3047","#3b79c2","#f2d16b"],link:""},
- {id:"ruins-photo",cat:"Photos",name:"Overworld Ruins Set",desc:"24 cinematic shader screenshots of abandoned bases, 4K.",spec:["24 images","3840×2160","PNG"],price:5,c:["#3a2a1c","#b5703a","#f3c98b"],link:""},
- {id:"nether-photo",cat:"Photos",name:"Nether Highway Set",desc:"18 wide shots along the highways, good for wallpapers and thumbnails.",spec:["18 images","3840×2160","PNG"],price:4,c:["#3b1414","#c0392b","#f39c4a"],link:""},
- {id:"thumb-kit",cat:"Packs",name:"YouTube Thumbnail Kit",desc:"Layered backgrounds, block icons and fonts for build videos.",spec:["40 assets","PSD + PNG"],price:7,c:["#141c2e","#e0811b","#eef0f5"],link:""},
- {id:"tex-pack",cat:"Packs",name:"Muted Stone Texture Pack",desc:"16× pack that tones down stone, deepslate and cobble for cleaner builds.",spec:["16×","Java 1.21"],price:3,c:["#2c2f36","#7a8091","#c9ccd4"],link:""}
-];
-/* ============================================== */
-
-const $=s=>document.querySelector(s);
-const app=$("#app");
-const CATS={schematics:"Schematics",photos:"Photos",packs:"Packs"};
-const BLURB={Schematics:"Paste-ready builds in .schem and .litematic.",Photos:"4K shader screenshots for wallpapers and thumbnails.",Packs:"Texture packs and creator kits."};
-let cart=[],page=1,query="";
-try{cart=JSON.parse(localStorage.getItem("xi-cart")||"[]")}catch(e){cart=[]}
-const save=()=>{try{localStorage.setItem("xi-cart",JSON.stringify(cart))}catch(e){}};
-const money=n=>"$"+n.toFixed(2);
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const art=c=>`background:linear-gradient(135deg,transparent 0 45%,${c[2]} 45% 55%,transparent 55%),repeating-linear-gradient(90deg,${c[0]} 0 24px,${c[1]} 24px 48px),repeating-linear-gradient(0deg,${c[0]} 0 24px,${c[1]} 24px 48px);background-blend-mode:normal,multiply`;
-const slug=c=>c.toLowerCase();
-
-function card(p){
-  const inCart=cart.includes(p.id);
-  return `<article class="card"><a class="thumb" href="#item-${p.id}" style="${art(p.c)}" aria-label="${esc(p.name)}"><span class="tag">${p.cat}</span></a>
-    <div class="body"><h3><a href="#item-${p.id}">${esc(p.name)}</a></h3><p class="desc">${esc(p.desc)}</p>
-    <div class="spec">${p.spec.map(s=>`<span>${esc(s)}</span>`).join("")}</div>
-    <div class="row"><span class="price">${money(p.price)}</span><button class="add" data-id="${p.id}" data-in="${inCart?1:0}">${inCart?"In cart":"Add to cart"}</button></div></div></article>`;
-}
-
-function renderHome(){
-  const newest=PRODUCTS.slice(0,3);
-  app.innerHTML=`<section class="view" id="home">
-    <h1 class="big">Builds, photos and packs you can download tonight.</h1>
-    <p class="lead">Schematics, 4K screenshots and creator kits. Instant download, personal-use license.</p>
-    <div class="perks"><span>Instant download</span><span>.schem + .litematic</span><span>Personal-use license</span></div>
-    <div class="btns"><a class="btn" href="#shop">Browse the shop</a><a class="btn ghost" href="#contact">Request a custom build</a></div>
-    <div class="cats">
-      <a class="cat" href="#schematics"><strong>Schematics</strong><span>Paste-ready builds in .schem and .litematic. 3 items.</span></a>
-      <a class="cat" href="#photos"><strong>Photos</strong><span>4K shader screenshots for wallpapers and thumbnails. 2 items.</span></a>
-      <a class="cat" href="#packs"><strong>Packs</strong><span>Texture packs and creator kits. 2 items.</span></a>
-    </div>
-    <div class="sec-head"><h2>Newest</h2><a href="#shop">See all 7 →</a></div>
-    <div class="grid">${newest.map(card).join("")}</div>
-  </section>`;
-  wire();
-}
-
-function renderShop(cat){
-  let list=PRODUCTS;
-  if(cat) list=list.filter(p=>p.cat===CATS[cat]);
-  if(query) list=list.filter(p=>(p.name+p.desc).toLowerCase().includes(query.toLowerCase()));
-  const pages=Math.ceil(list.length/PER_PAGE)||1;
-  page=Math.min(page,pages);
-  const slice=list.slice((page-1)*PER_PAGE,page*PER_PAGE);
-  const title=cat?CATS[cat]:"Shop";
-  app.innerHTML=`<section class="view">
-    <h1 class="mid">${title}</h1>
-    ${cat?`<p class="lead">${BLURB[CATS[cat]]}</p>`:""}
-    <div class="tools">
-      <div class="chips">
-        <button class="chip" data-cat="" aria-pressed="${!cat}">All</button>
-        <button class="chip" data-cat="schematics" aria-pressed="${cat==="schematics"}">Schematics</button>
-        <button class="chip" data-cat="photos" aria-pressed="${cat==="photos"}">Photos</button>
-        <button class="chip" data-cat="packs" aria-pressed="${cat==="packs"}">Packs</button>
-      </div>
-      <input class="search" id="q" placeholder="Search" value="${esc(query)}">
-    </div>
-    <div class="grid">${slice.length?slice.map(card).join(""):`<p class="empty">Nothing matches.</p>`}</div>
-    ${pages>1?`<div class="pager">${Array.from({length:pages},(_,i)=>`<button ${i+1===page?`aria-current="page"`:""} data-p="${i+1}">${i+1}</button>`).join("")}<small>Page ${page} of ${pages}</small></div>`:""}
-  </section>`;
-  wire();
-  $("#q")?.addEventListener("input",e=>{query=e.target.value;page=1;renderShop(cat)});
-}
-
-function renderProduct(id){
-  const p=PRODUCTS.find(x=>x.id===id);
-  if(!p){location.hash="#shop";return}
-  const i=PRODUCTS.indexOf(p);
-  const prev=PRODUCTS[(i-1+PRODUCTS.length)%PRODUCTS.length];
-  const next=PRODUCTS[(i+1)%PRODUCTS.length];
-  const inCart=cart.includes(p.id);
-  app.innerHTML=`<section class="view">
-    <div class="crumbs"><a href="#shop">Shop</a><span>/</span><a href="#${slug(p.cat)}">${p.cat}</a><span>/</span><span>${esc(p.name)}</span></div>
-    <div class="pdp">
-      <div class="thumb" style="${art(p.c)}"></div>
-      <div class="pdp-info">
-        <h1 class="mid">${esc(p.name)}</h1>
-        <p class="lead">${esc(p.desc)}</p>
-        <dl class="facts">
-          <dt>Category</dt><dd>${p.cat}</dd>
-          <dt>Details</dt><dd>${p.spec.join(" · ")}</dd>
-          <dt>License</dt><dd>Personal use</dd>
-          <dt>Delivery</dt><dd>Instant download after checkout</dd>
-        </dl>
-        <div class="row"><span class="price">${money(p.price)}</span><button class="add" data-id="${p.id}" data-in="${inCart?1:0}">${inCart?"In cart":"Add to cart"}</button></div>
-        ${p.link?`<a class="btn" href="${p.link}" target="_blank" rel="noopener">Buy now</a>`:`<p class="note">Payment link not set yet. Add a Stripe/Gumroad link in the SETTINGS block.</p>`}
-      </div>
-    </div>
-    <div class="flip">
-      <a href="#item-${prev.id}"><small>Previous</small><b>${esc(prev.name)}</b></a>
-      <a class="next" href="#item-${next.id}"><small>Next</small><b>${esc(next.name)}</b></a>
-    </div>
-  </section>`;
-  wire();
-}
-
-function renderAbout(){
-  app.innerHTML=`<section class="view">
-    <h1 class="mid">About XanderIraq</h1>
-    <div class="prose">
-      <p>I make Minecraft schematics, 4K screenshots and creator kits. Everything is ready to download the moment you check out.</p>
-      <p>Builds are tested in 1.20+ (some work in 1.19). Photos are 4K PNG. Packs include the files listed on each product.</p>
-    </div>
-    <h2>How it works</h2>
-    <div class="steps">
-      <div><strong>1. Pick something</strong><p>Browse the shop or request a custom build.</p></div>
-      <div><strong>2. Check out</strong><p>Enter your email. You'll get the download link right away.</p></div>
-      <div><strong>3. Use it</strong><p>Personal-use license. Don't resell or redistribute the files.</p></div>
-    </div>
-    <h2>FAQ</h2>
-    <div class="faq">
-      <details><summary>What file formats do you deliver?</summary><p>Schematics as .schem and .litematic. Photos as 4K PNG. Packs as listed on the product.</p></details>
-      <details><summary>Do the builds work on my version?</summary><p>Most are tested on 1.20+. Check the product details for the minimum version.</p></details>
-      <details><summary>Can I use these on a server?</summary><p>Personal use is fine. For commercial or public servers, contact me first.</p></details>
-      <details><summary>Refunds?</summary><p>Digital goods are final sale once downloaded. Contact me if something is broken.</p></details>
-    </div>
-  </section>`;
-}
-
-function renderContact(){
-  app.innerHTML=`<section class="view">
-    <h1 class="mid">Contact</h1>
-    <p class="lead">Questions, custom requests, or just saying hi. I usually reply within a day.</p>
-    <form class="formcard" id="contact">
-      <div class="two">
-        <div class="field"><label for="name">Name</label><input id="name" required></div>
-        <div class="field"><label for="cemail">Email</label><input id="cemail" type="email" required></div>
-      </div>
-      <div class="field"><label for="topic">Topic</label><select id="topic"><option>Custom build</option><option>Question about a product</option><option>Other</option></select></div>
-      <div class="field"><label for="msg">Message</label><textarea id="msg" required></textarea></div>
-      <input class="hp" name="website" tabindex="-1" autocomplete="off">
-      <button class="btn" type="submit">Send</button>
-      <p class="msg" id="cmsg"></p>
-    </form>
-    <div class="signup">
-      <strong>Get notified of new builds</strong>
-      <form id="nl"><input type="email" placeholder="Email" required><button class="btn" type="submit">Subscribe</button></form>
-      <p class="msg" id="nlmsg"></p>
-    </div>
-  </section>`;
-  $("#contact").addEventListener("submit",async e=>{
-    e.preventDefault();
-    const btn=e.target.querySelector("button");
-    btn.disabled=true;
-    const fd=new FormData();
-    fd.append("access_key",WEB3FORMS_KEY);
-    fd.append("subject","Contact from XanderIraq");
-    fd.append("name",$("#name").value);
-    fd.append("email",$("#cemail").value);
-    fd.append("topic",$("#topic").value);
-    fd.append("message",$("#msg").value);
-    if($(".hp").value){btn.disabled=false;return}
-    try{
-      const r=await fetch("https://api.web3forms.com/submit",{method:"POST",body:fd});
-      const j=await r.json();
-      $("#cmsg").textContent=j.success?"Sent. I'll reply soon.":"Something went wrong. Try again.";
-      $("#cmsg").className=j.success?"msg ok":"msg bad";
-      if(j.success)e.target.reset();
-    }catch(err){$("#cmsg").textContent="Network error.";$("#cmsg").className="msg bad"}
-    btn.disabled=false;
-  });
-  $("#nl").addEventListener("submit",async e=>{
-    e.preventDefault();
-    const btn=e.target.querySelector("button");
-    btn.disabled=true;
-    const fd=new FormData();
-    fd.append("access_key",WEB3FORMS_KEY);
-    fd.append("subject","Newsletter signup");
-    fd.append("email",e.target.querySelector("input").value);
-    try{
-      const r=await fetch("https://api.web3forms.com/submit",{method:"POST",body:fd});
-      const j=await r.json();
-      $("#nlmsg").textContent=j.success?"You're on the list.":"Couldn't subscribe. Try again.";
-      $("#nlmsg").className=j.success?"msg ok":"msg bad";
-      if(j.success)e.target.reset();
-    }catch(err){$("#nlmsg").textContent="Network error.";$("#nlmsg").className="msg bad"}
-    btn.disabled=false;
-  });
-}
-
-function wire(){
-  document.querySelectorAll(".add").forEach(b=>b.onclick=()=>{
-    const id=b.dataset.id;
-    if(!cart.includes(id))cart.push(id);
-    else cart=cart.filter(x=>x!==id);
-    save();updateCart();route();
-  });
-  document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{page=1;location.hash="#"+(c.dataset.cat||"shop")});
-  document.querySelectorAll(".pager button").forEach(b=>b.onclick=()=>{page=+b.dataset.p;route()});
-}
-
-function updateCart(){
-  $("#count").textContent=cart.length;
-  const lines=$("#lines");
-  if(!cart.length){lines.innerHTML=`<p class="empty">Cart is empty.</p>`;$("#total").textContent="$0.00";return}
-  let total=0;
-  lines.innerHTML=cart.map(id=>{
-    const p=PRODUCTS.find(x=>x.id===id);
-    total+=p.price;
-    return `<div class="line"><div class="sw" style="${art(p.c)}"></div><div><b>${esc(p.name)}</b><small>${money(p.price)}</small></div><button class="rm" data-id="${id}">Remove</button></div>`;
-  }).join("");
-  $("#total").textContent=money(total);
-  lines.querySelectorAll(".rm").forEach(b=>b.onclick=()=>{cart=cart.filter(x=>x!==b.dataset.id);save();updateCart();route()});
-}
-
-function route(){
-  const h=location.hash.slice(1)||"home";
-  document.querySelectorAll("#tabs a").forEach(a=>a.removeAttribute("aria-current"));
-  const tab=document.querySelector(`#tabs a[data-v="${h.split("-")[0]}"]`)||document.querySelector(`#tabs a[data-v="${h}"]`);
-  if(tab)tab.setAttribute("aria-current","page");
-  if(h==="home"||h==="")renderHome();
-  else if(h==="shop")renderShop();
-  else if(CATS[h])renderShop(h);
-  else if(h.startsWith("item-"))renderProduct(h.slice(5));
-  else if(h==="about")renderAbout();
-  else if(h==="contact")renderContact();
-  else renderHome();
-  updateCart();
-  window.scrollTo(0,0);
-}
-
-$("#openCart").onclick=()=>{$("#cart").hidden=false;$("#scrim").hidden=false};
-$("#closeCart").onclick=$("#scrim").onclick=()=>{$("#cart").hidden=true;$("#scrim").hidden=true};
-$("#co").onsubmit=async e=>{
-  e.preventDefault();
-  const email=$("#email").value;
-  if(!email||!cart.length)return;
-  $("#payBtn").disabled=true;
-  $("#msg").textContent="Redirecting to checkout…";
-  // In a real setup you'd create a Stripe session here. For now we just clear and note.
-  setTimeout(()=>{
-    $("#msg").textContent="Checkout is not fully wired yet. Add payment links to products in SETTINGS.";
-    $("#msg").className="msg bad";
-    $("#payBtn").disabled=false;
-  },600);
-};
-
-// Theme
-const theme=$("#theme");
-function applyTheme(m){
-  document.documentElement.removeAttribute("data-theme");
-  if(m==="light"||m==="dark")document.documentElement.setAttribute("data-theme",m);
-  theme.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===m));
-  try{localStorage.setItem("xi-theme",m)}catch(e){}
-}
-theme.onclick=e=>{
-  const b=e.target.closest("button");
-  if(b)applyTheme(b.dataset.mode);
-};
-try{applyTheme(localStorage.getItem("xi-theme")||"auto")}catch(e){applyTheme("auto")}
-
-$("#yr").textContent=new Date().getFullYear();
-window.onhashchange=route;
-route();
+(function () {
+  var catalog = window.XI_CATALOG || {};
+  var token = typeof catalog.analyticsToken === "string" ? catalog.analyticsToken.trim() : "";
+  if (!token) return;
+  var script = document.createElement("script");
+  script.defer = true;
+  script.src = "https://static.cloudflareinsights.com/beacon.min.js";
+  script.setAttribute("data-cf-beacon", JSON.stringify({ token: token }));
+  document.head.appendChild(script);
+})();
+</script>
+<script src="./app.js"></script>
+<script>
+(function () {
+  var root = document.getElementById("app");
+  if (root && !root.children.length) {
+    root.textContent = "The shop could not be drawn. Reload the page.";
+  }
+})();
 </script>
 </body>
 </html>
